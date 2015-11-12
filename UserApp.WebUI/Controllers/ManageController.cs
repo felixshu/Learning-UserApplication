@@ -61,6 +61,8 @@ namespace UserApp.WebUI.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+								: message == ManageMessageId.ChangeEmailSuccess ? "Your Email has been changed. Please Confirm your Email Address again."
+								: message == ManageMessageId.ChangeProfileSuccess ? "Your Profile has been changed."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -379,6 +381,8 @@ namespace UserApp.WebUI.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
+						ChangeEmailSuccess,
+						ChangeProfileSuccess,
             Error
         }
 

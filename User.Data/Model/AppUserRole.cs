@@ -1,16 +1,19 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace User.Data.Model
 {
-	public class AppUserRole:IdentityRole
+	public class AppUserRole : IdentityRole
 	{
 		public AppUserRole()
 		{
-			
-		}public AppUserRole(string name):base(name)
+			this.Id = Guid.NewGuid().ToString();
+		}
+
+		public AppUserRole(string name) : base(name)
 		{
-			
+			this.Name = name;
 		}
 	}
 }

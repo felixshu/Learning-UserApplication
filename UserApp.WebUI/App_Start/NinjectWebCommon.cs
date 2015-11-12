@@ -1,24 +1,23 @@
-using System;
-using System.Web;
 using System.Web.Mvc;
-using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-using Ninject;
-using Ninject.Web.Common;
-using UserApp.WebUI;
 using UserApp.WebUI.Infrastructure;
-using WebActivatorEx;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof (NinjectWebCommon), "Start")]
-[assembly: ApplicationShutdownMethod(typeof (NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof (UserApp.WebUI.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof (UserApp.WebUI.App_Start.NinjectWebCommon), "Stop")]
 
-namespace UserApp.WebUI
+namespace UserApp.WebUI.App_Start
 {
+	using System;
+	using System.Web;
+	using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+	using Ninject;
+	using Ninject.Web.Common;
+
 	public static class NinjectWebCommon
 	{
 		private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
 		/// <summary>
-		///   Starts the application
+		/// Starts the application
 		/// </summary>
 		public static void Start()
 		{
@@ -28,7 +27,7 @@ namespace UserApp.WebUI
 		}
 
 		/// <summary>
-		///   Stops the application.
+		/// Stops the application.
 		/// </summary>
 		public static void Stop()
 		{
@@ -36,7 +35,7 @@ namespace UserApp.WebUI
 		}
 
 		/// <summary>
-		///   Creates the kernel that will manage your application.
+		/// Creates the kernel that will manage your application.
 		/// </summary>
 		/// <returns>The created kernel.</returns>
 		private static IKernel CreateKernel()
@@ -58,7 +57,7 @@ namespace UserApp.WebUI
 		}
 
 		/// <summary>
-		///   Load your modules or register your services here!
+		/// Load your modules or register your services here!
 		/// </summary>
 		/// <param name="kernel">The kernel.</param>
 		private static void RegisterServices(IKernel kernel)

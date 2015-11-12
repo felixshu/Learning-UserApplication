@@ -25,6 +25,8 @@ namespace Application.Service.DataContext
 		public DbSet<ServiceItem> ServiceItems { get; set; }
 		public DbSet<WorkOrder> WorkOrders { get; set; }
 
+		public System.Data.Entity.DbSet<User.Data.Model.AppUserRole> IdentityRoles { get; set; }
+
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.Configurations.Add(new CategoryConfiguration());

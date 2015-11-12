@@ -41,10 +41,10 @@ namespace Application.Service.Migrations
 			var roleManager = new RoleManager<AppUserRole>(new RoleStore<AppUserRole>(new AppUserDbContext()));
 
 			var name = "felixgrayson.sy@gmail.com";
-			var password = "pwd123456";
+			var password = "Professor#5";
 			var firstname = "Felix";
 			var lastname = "Grayson";
-			var roleName = "GeneralManager";
+			var roleName = "General Manager";
 
 			var role = roleManager.FindByName(roleName);
 
@@ -59,7 +59,7 @@ namespace Application.Service.Migrations
 			{
 				user = new AppUser
 				{
-					UserName = firstname + lastname,
+					UserName = name,
 					FirstName = firstname,
 					LastName = lastname,
 					Email = name
