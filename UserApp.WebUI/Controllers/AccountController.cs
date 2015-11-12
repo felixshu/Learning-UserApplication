@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Web;
@@ -159,10 +160,6 @@ namespace UserApp.WebUI.Controllers
 				var result = await UserManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)
 				{
-					await SignInManager.SignInAsync(user, false, false);
-
-					// For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-					// Send an email with this link
 					return await GenerateEmailConfirmation(user);
 				}
 				AddErrors(result);
@@ -176,8 +173,15 @@ namespace UserApp.WebUI.Controllers
 		public async Task<ActionResult> GenerateEmailConfirmation(AppUser user)
 		{
 			var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-			var callbackUrl = Url.Action("ConfirmEmail", "Account", new {userId = user.Id, code}, Request.Url.Scheme);
-			await UserManager.SendEmailAsync(user.Id, "Confirm your account",
+
+			var callbackUrl = Url.Action(
+				"ConfirmEmail", 
+				"Account", 
+				new {userId = user.Id, code}, Request.Url.Scheme);
+
+			await UserManager.SendEmailAsync(
+				user.Id, 
+				"Confirm your account",
 				"Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
 			return View("CheckYourEmail");
@@ -203,8 +207,16 @@ namespace UserApp.WebUI.Controllers
 			{
 				return View("Error");
 			}
-			var result = await UserManager.ConfirmEmailAsync(userId, code);
-			return View(result.Succeeded ? "ConfirmEmail" : "Error");
+			try
+			{
+				var result = await UserManager.ConfirmEmailAsync(userId, code);
+				return View("ConfirmEmail");
+			}
+			catch (InvalidOperationException)
+			{
+
+				return View("Error");
+			}
 		}
 
 		//
@@ -345,6 +357,7 @@ namespace UserApp.WebUI.Controllers
 		public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
 		{
 			var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+
 			if (loginInfo == null)
 			{
 				return RedirectToAction("Login");
@@ -389,7 +402,9 @@ namespace UserApp.WebUI.Controllers
 				{
 					return View("ExternalLoginFailure");
 				}
-				var user = new AppUser {UserName = model.Email, Email = model.Email};
+				var firstName = info.ExternalIdentity.Claims.First(c => c.Type.Contains("givenname")).Value ?? string.Empty;
+				var lastName = info.ExternalIdentity.Claims.First(c => c.Type.Contains("surname")).Value ?? string.Empty;
+				var user = new AppUser {UserName = model.Email, Email = model.Email, FirstName = firstName.Substring(0,Math.Min(firstName.Length,15)), LastName = lastName.Substring(0, Math.Min(firstName.Length, 15)) };
 				var result = await UserManager.CreateAsync(user);
 				if (result.Succeeded)
 				{

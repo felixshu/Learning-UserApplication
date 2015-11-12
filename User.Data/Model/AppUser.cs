@@ -14,6 +14,7 @@ namespace User.Data.Model
 		}
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
+		public string FullName => FirstName + " " + LastName;
 
 		public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<AppUser> manager)
 		{

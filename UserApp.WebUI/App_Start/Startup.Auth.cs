@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Google;
 using Owin;
 using User.Data.Model;
 
@@ -59,11 +60,11 @@ namespace UserApp.WebUI
 			//   appId: "",
 			//   appSecret: "");
 
-			//app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-			//{
-			//    ClientId = "",
-			//    ClientSecret = ""
-			//});
+			app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions
+			{
+			    ClientId = "21151007260-kfnudc8uvsqse04avbvibjepp28gflel.apps.googleusercontent.com",
+			    ClientSecret = "eureiRC_8Co8IEBRl8FvTpF8"
+			});
 		}
 	}
 }

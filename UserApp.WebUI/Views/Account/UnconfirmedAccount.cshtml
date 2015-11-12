@@ -1,15 +1,12 @@
 ﻿
 @{
-	ViewBag.Title = "Unconfirmed Account";
+    ViewBag.Title = "Unconfirmed Account";
 }
 
-
 <h2>@ViewBag.Title</h2>
-
-<p>If you have still not recieved an email confirmation message within 10 minutes of registering, or if you accidentally deleted the message, then click this button and we'll send you another one</p>
-
-@using (Html.BeginForm("RegenerateEmailConfirmation", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+<p>If you have still not receive an email confirmation message within 10 minutes of registering, or if you accidentially deleted the message, then click this button and we will resend you another one.</p>
+@using (Html.BeginForm("RegenerateEmailConfirmation", "Account", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
 {
-	@Html.Hidden("Email", (string)ViewBag.Email)
-	<input type="submit" value="Re-Send Email Confirmation" class="btn btn-primary" />
+	@Html.Hidden("Email",(string)ViewBag.Email)
+	<input type="submit" value="Re-Send Email Confirmation" class="btn btn-primary"/>
 }

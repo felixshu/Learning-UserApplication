@@ -8,13 +8,8 @@ namespace Application.Service.DataContext
 	public class AppUserDbContext : IdentityDbContext<AppUser>
 	{
 		public AppUserDbContext()
-			: base("AppUserDbContext", throwIfV1Schema: false)
+			: base("AppUserDbContext", false)
 		{
-		}
-        
-		public static AppUserDbContext Create()
-		{
-			return new AppUserDbContext();
 		}
 
 		public DbSet<Category> Categories { get; set; }
@@ -25,7 +20,11 @@ namespace Application.Service.DataContext
 		public DbSet<ServiceItem> ServiceItems { get; set; }
 		public DbSet<WorkOrder> WorkOrders { get; set; }
 
-		public System.Data.Entity.DbSet<User.Data.Model.AppUserRole> IdentityRoles { get; set; }
+		public static AppUserDbContext Create()
+		{
+			return new AppUserDbContext();
+		}
+
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{

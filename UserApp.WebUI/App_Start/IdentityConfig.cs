@@ -23,12 +23,12 @@ namespace UserApp.WebUI
 		public Task SendAsync(IdentityMessage message)
 		{
 			// Plug in your email service here to send an email.
-			const string userName = "";
-			const string password = "";
-			const string from = "";
+			const string userName = "Graysonshoppingmall";
+			const string password = "Y8Bcg>tCs\"YiP\"4rKw7LpsCVs";
+			const string from = "prc.shuyun@gmail.com";
 			const int port = 587;
 
-			var smtpClient = new SmtpClient()
+			var smtpClient = new SmtpClient
 			{
 				Host = "smtp.sendgrid.net",
 				Port = port,
@@ -38,10 +38,12 @@ namespace UserApp.WebUI
 				Credentials = new NetworkCredential(userName, password)
 			};
 
-			var mailMessage = new MailMessage(from, message.Destination);
-			mailMessage.Subject = message.Subject;
-			mailMessage.Body = message.Body;
-			
+			var mailMessage = new MailMessage(from, message.Destination)
+			{
+				Subject = message.Subject,
+				Body = message.Body
+			};
+
 			return smtpClient.SendMailAsync(mailMessage);
 		}
 	}
