@@ -1,5 +1,5 @@
 ﻿using System;
-using Application.Service.DataContext;
+using Application.Service.DBContext;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;

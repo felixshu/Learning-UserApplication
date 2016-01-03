@@ -1,7 +1,7 @@
 using System;
 using System.Data.Entity.Migrations;
 using System.Threading.Tasks;
-using Application.Service.DataContext;
+using Application.Service.DBContext;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using User.Data.Model;
